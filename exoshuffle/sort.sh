@@ -1,0 +1,1 @@
+CONFIG=LocalNative sudo -E $(which python) raysort/main.py

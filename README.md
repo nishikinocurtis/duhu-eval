@@ -46,3 +46,30 @@ to modify certain configurations, they are places in `/home/ray/kvs.json` and `/
 
 Or use `run.sh` in each sub-directory to automatically interact with docker and collect data.
 
+# Test Cases
+
+## TPC-H
+
+sf=10, Q = 1-22 exclude 5
+
+## TPC-DS
+
+sf=10, Q = about 30 out of 1-99 
+
+## ExoShuffle
+
+32 = 64 * 0.5
+32 = 32 * 1
+16 = 64 * 0.25
+16 = 32 * 0.5
+16 = 16 * 1
+4  = 16 * 0.25
+1  = 16 * (1/16)
+
+## Microbenchmark
+
+Fanout Single Producer Multiple Reader
+
+Random Access
+
+Memory Pressure: 1 produce 15GB, (15+15 setting) 2 produce 30GB (30 + 30 setting), 3 produce 30GB (30 + 30 setting) 
