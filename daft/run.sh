@@ -4,9 +4,9 @@ current_time=$(date +"%Y%m%d_%H%M%S")
 log_dir="./logs_${current_time}"
 mkdir -p "$log_dir"
 
-echo "Running Modin on baseline first"
+echo "Running Daft on baseline first"
 
-./if.sh ray-modin
+./if.sh ray-daft
 
 # docker exec in container ray1, using the existing shell, command ray1
 docker exec -d ray1 bash -c "ray1"
@@ -19,7 +19,7 @@ docker exec -d ray2 bash -c "ray2"
 sleep 10
 
 # run the test
-docker exec -d ray1 bash -c './tpch.sh > /tmp/output.log 2>&1'
+docker exec -d ray1 bash -c './tpcds.sh > /tmp/output.log 2>&1'
 docker exec -it ray1 tail -f /tmp/output.log
 
 # we'll be blocked until quit from shell
@@ -32,10 +32,10 @@ docker exec -it ray2 bash -c 'ray stop'
 docker exec -it ray1 bash -c 'ray stop'
 docker stop ray1 ray2
 
-echo "Finished running Modin on baseline"
+echo "Finished running Daft on baseline"
 
-echo "Running Modin on DUHU"
-./if.sh duhu-modin
+echo "Running Daft on DUHU"
+./if.sh daft-modin
 
 # docker exec in container ray1, using the existing shell, command ray1
 docker exec -d ray1 bash -c "cr"
@@ -53,7 +53,7 @@ docker exec -d ray2 bash -c "ray2"
 sleep 10
 
 # run the test
-docker exec -d ray1 bash -c './tpch.sh > /tmp/output.log 2>&1'
+docker exec -d ray1 bash -c './tpcds.sh > /tmp/output.log 2>&1'
 docker exec -it ray1 tail -f /tmp/output.log
 
 # we'll be blocked until quit from shell

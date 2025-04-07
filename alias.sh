@@ -38,7 +38,7 @@ alias ray-daft1='docker run -dit --rm --shm-size=50gb -m=50g --cpuset-cpus="0-15
 -e RAY_BACKEND_LOG_LEVEL=debug --name ray1 --network none nishikinocurtis/duhu:daft-ray'
 
 alias ray-daft2='docker run -dit --rm --shm-size=50gb -m=50g --cpuset-cpus="16-31" --cpuset-mems="0" \
--v ./daft/dockerfiles/tpcds-sf10:/tmp/tpcds \
+-v ./daft/tpcds-sf10:/tmp/tpcds \
 -e RAY_BACKEND_LOG_LEVEL=debug --name ray2 --network none nishikinocurtis/duhu:daft-ray'
 
 alias ray-modin1='docker run -dit --rm --shm-size=70gb -m=50g --cpuset-cpus="0-15" --cpuset-mems="0" \
