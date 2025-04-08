@@ -14,11 +14,6 @@ RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -
   rm /tmp/miniconda.sh && \
   /opt/conda/bin/conda clean -ya && \
   /opt/conda/bin/conda init bash
-# ARG USER_GID=2000
-
-# RUN sudo groupadd --gid $USER_GID $USERNAME
-# RUN sudo useradd -u $USER_UID -g $USER_GID $USERNAME -m -s /bin/bash 
-# RUN sudo usermod -aG sudo,$USERNAME $USERNAME
 
 # put everything in . folder
 # COPY --chown=$USERNAME:$USERNAME ./ray-sdm/python/requirements_compiled.txt .
@@ -26,12 +21,10 @@ COPY ./env.yml .
 COPY ./exoshuffle/exoreq.txt .
 # COPY --chown=$USERNAME:$USERNAME ./ray-sdm/.whl/ray-2.40.0-cp39-cp39-manylinux2014_x86_64.whl .
 #COPY --chown=$USERNAME:$USERNAME ./ray-sdm/examples/kvs.json .
-COPY ./exoshuffle/raysort ./raysort
+COPY ./exoshuffle/raysort/raysort ./raysort
 
-COPY ./exoshuffle/run.sh ./raysort/run.sh
-RUN chmod +x ./raysort/run.sh
-COPY ./exoshuffle/sort.sh ./raysort/sort.sh
-RUN chmod +x ./raysort/sort.sh
+COPY --chmod=+x ./exoshuffle/run.sh ./raysort/run.sh
+COPY --chmod=+x ./exoshuffle/sort.sh ./raysort/sort.sh
 
 ENV PATH="/opt/conda/bin:/opt/conda/envs/ray/bin:$PATH"
 
@@ -50,4 +43,4 @@ RUN scripts/installers/install_binaries.sh
 
 ENV CONDA_DEFAULT_ENV=ray
 RUN echo "conda activate ray" >> ~/.bashrc
-ENV PATH=$HOME/anaconda3/envs/raysort/bin:$PATH
+ENV PATH=$HOME/anaconda3/envs/ray/bin:$PATH

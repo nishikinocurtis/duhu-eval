@@ -1,4 +1,4 @@
-FROM duhu
+FROM nishikinocurtis/duhu:duhu-base
 
 ARG USERNAME=ray
 # ARG USER_UID=2000
@@ -9,33 +9,30 @@ ARG USERNAME=ray
 # RUN sudo usermod -aG sudo,$USERNAME $USERNAME
 
 # put everything in . folder
-COPY --chown=$USERNAME:$USERNAME ./env.yml .
+# COPY ./exoshuffle/env.yml .
 COPY --chown=$USERNAME:$USERNAME ./exoshuffle/exoreq.txt .
-COPY --chown=$USERNAME:$USERNAME ./exoshuffle/raysort $HOME/raysort
+COPY --chown=$USERNAME:$USERNAME ./exoshuffle/raysort/raysort $HOME/raysort
 
-COPY --chown=$USERNAME:$USERNAME ./exoshuffle/run.sh $HOME/raysort/run.sh
-RUN chmod +x $HOME/raysort/run.sh
-COPY --chown=$USERNAME:$USERNAME ./exoshuffle/sort.sh $HOME/raysort/sort.sh
-RUN chmod +x $HOME/raysort/sort.sh
+COPY --chmod=+x --chown=$USERNAME:$USERNAME ./exoshuffle/run.sh $HOME/raysort/run.sh
+COPY --chmod=+x --chown=$USERNAME:$USERNAME ./exoshuffle/sort.sh $HOME/raysort/sort.sh
 
-USER ${USERNAME}
 RUN sudo apt update
 RUN sudo apt install -y vim net-tools \
                         iputils-ping build-essential
-RUN conda env create -f env.yml
+# RUN conda env create -f env.yml
 
 WORKDIR $HOME/raysort
 
-SHELL ["conda", "run", "--no-capture-output", "-n", "raysort", "/bin/bash", "-c"]
+# SHELL ["conda", "run", "--no-capture-output", "-n", "raysort", "/bin/bash", "-c"]
 
 RUN pip install -Ur $HOME/exoreq.txt
 RUN pip install -e .
 RUN pushd raysort/sortlib && python setup.py build_ext --inplace && popd
 RUN scripts/installers/install_binaries.sh
 
-ENV CONDA_DEFAULT_ENV=raysort
-RUN echo "conda activate raysort" >> ~/.bashrc
-ENV PATH=$HOME/anaconda3/envs/raysort/bin:$PATH
+ENV CONDA_DEFAULT_ENV=ray
+# RUN echo "conda activate raysort" >> ~/.bashrc
+# ENV PATH=$HOME/anaconda3/envs/raysort/bin:$PATH
 
 RUN echo "alias cr='sudo chmod -R 777 /dev/hugepages'" >> ~/.bashrc
 

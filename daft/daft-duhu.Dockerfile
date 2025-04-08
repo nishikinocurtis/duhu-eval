@@ -1,5 +1,5 @@
 # Use the official Debian 12 base image
-FROM duhu
+FROM nishikinocurtis/duhu:duhu-base
 
 ARG USERNAME=ray
 
