@@ -3,12 +3,7 @@ FROM debian:12
 
 ENV PATH="/opt/conda/bin:/opt/conda/envs/ray/bin:$PATH"
 
-# ARG USERNAME=ray
-
-# COPY --chown=$USERNAME:$USERNAME ./daftreq.txt .
-# COPY --chown=$USERNAME:$USERNAME ./modin $HOME/modin
-# 
-# # Install dependencies
+# Install dependencies
 RUN apt-get update && \
     apt-get install -y git wget bzip2 vim net-tools iputils-ping build-essential && \
     rm -rf /var/lib/apt/lists/*
@@ -30,19 +25,15 @@ COPY ./daft/daftreq.txt .
 
 RUN echo "ray==2.40.0" > /tmp/constraints.txt
 RUN pip install -Ur daftreq.txt --constraint /tmp/constraints.txt
-#RUN pip install -U daft
-#RUN pip install -U daft[ray]
 
 RUN mkdir -p /home/ray/daft
-# RUN pip install -e .
+
+COPY ./daft/run.sh /home/ray/daft/run.sh
+RUN chmod +x $HOME/daft/run.sh
+COPY ./daft/tpcds.sh /home/ray/daft/tpcds.sh
+RUN chmod +x $HOME/daft/tpcds.sh
+
 WORKDIR /home/ray/daft
-
-
-COPY ./daft $HOME/daft
-
-# COPY --chown=$USERNAME:$USERNAME ./queries.py .
-
-# RUN echo "alias cr='sudo chmod -R 777 /dev/hugepages'" >> ~/.bashrc
 
 RUN echo "alias ray1=\"ray start --head --num-cpus=8 \
 --dashboard-host 0.0.0.0 --object-store-memory 40000000000 \

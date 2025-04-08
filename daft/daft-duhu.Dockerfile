@@ -4,24 +4,22 @@ FROM duhu
 ARG USERNAME=ray
 
 COPY --chown=$USERNAME:$USERNAME ./daft/daftreq.txt .
-# COPY --chown=$USERNAME:$USERNAME ./modin $HOME/modin
-# 
+
 # # Install dependencies
 RUN sudo apt-get update && \
     sudo apt-get install -y git wget bzip2 vim net-tools iputils-ping build-essential && \
     sudo rm -rf /var/lib/apt/lists/*
 
 RUN pip install -Ur daftreq.txt
-# RUN pip install -U daft
-# RUN pip install -U daft[ray]
+
 
 RUN mkdir -p $HOME/daft
-# RUN pip install -e .
+COPY --chown=$USERNAME:$USERNAME ./daft/run.sh $HOME/daft/run.sh
+RUN chmod +x $HOME/daft/run.sh
+COPY --chown=$USERNAME:$USERNAME ./daft/tpcds.sh $HOME/daft/tpcds.sh
+RUN chmod +x $HOME/daft/tpcds.sh
+
 WORKDIR $HOME/daft
-
-# COPY ./daft $HOME/daft
-
-# COPY --chown=$USERNAME:$USERNAME ./queries.py .
 
 RUN echo "alias cr='sudo chmod -R 777 /dev/hugepages'" >> ~/.bashrc
 

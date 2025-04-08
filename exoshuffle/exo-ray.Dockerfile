@@ -26,11 +26,14 @@ COPY ./env.yml .
 COPY ./exoshuffle/exoreq.txt .
 # COPY --chown=$USERNAME:$USERNAME ./ray-sdm/.whl/ray-2.40.0-cp39-cp39-manylinux2014_x86_64.whl .
 #COPY --chown=$USERNAME:$USERNAME ./ray-sdm/examples/kvs.json .
-COPY ./exoshuffle/raysort/raysort ./raysort
+COPY ./exoshuffle/raysort ./raysort
+
+COPY ./exoshuffle/run.sh ./raysort/run.sh
+RUN chmod +x ./raysort/run.sh
+COPY ./exoshuffle/sort.sh ./raysort/sort.sh
+RUN chmod +x ./raysort/sort.sh
 
 ENV PATH="/opt/conda/bin:/opt/conda/envs/ray/bin:$PATH"
-
-# WORKDIR /raysort
 
 RUN /opt/conda/bin/conda env create -f env.yml
 

@@ -13,6 +13,11 @@ COPY --chown=$USERNAME:$USERNAME ./env.yml .
 COPY --chown=$USERNAME:$USERNAME ./exoshuffle/exoreq.txt .
 COPY --chown=$USERNAME:$USERNAME ./exoshuffle/raysort $HOME/raysort
 
+COPY --chown=$USERNAME:$USERNAME ./exoshuffle/run.sh $HOME/raysort/run.sh
+RUN chmod +x $HOME/raysort/run.sh
+COPY --chown=$USERNAME:$USERNAME ./exoshuffle/sort.sh $HOME/raysort/sort.sh
+RUN chmod +x $HOME/raysort/sort.sh
+
 USER ${USERNAME}
 RUN sudo apt update
 RUN sudo apt install -y vim net-tools \
