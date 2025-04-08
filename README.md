@@ -12,6 +12,12 @@ Evaluation set for Duhu
 
 - [x] Daft Script
 
+# Build
+
+All `docker build` command assume build directory to be project root!!!
+
+
+
 # Running
 
 ```bash

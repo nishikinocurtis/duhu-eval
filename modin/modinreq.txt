@@ -1,0 +1,3 @@
+# torch
+ale_py
+opencv-python-headless

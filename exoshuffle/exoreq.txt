@@ -1,0 +1,4 @@
+ale_py
+opencv-python-headless
+
+ray[all]==2.40.0
