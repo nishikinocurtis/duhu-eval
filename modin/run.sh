@@ -1,67 +1,81 @@
+#!/bin/bash
 # generate a current date-time string as a directory name
 current_time=$(date +"%Y%m%d_%H%M%S")
 # create a directory with the current date-time string
-log_dir="./logs_${current_time}"
-mkdir -p "$log_dir"
+log_dir="./modin/logs_${current_time}"
 
 echo "Running Modin on baseline first"
 
-./if.sh ray-modin
+pushd ..
+mkdir -p "$log_dir"
 
-# docker exec in container ray1, using the existing shell, command ray1
-docker exec -d ray1 bash -c "ray1"
+ ./if.sh ray-modin
+ echo "start ray on ray1"
+ docker exec -d ray1 bash -ic "ray1"
+ sleep 20
+ 
+ for i in {2..4}; do
+     cont_name="ray${i}"
+     echo "start ray on ${cont_name}"
+     docker exec -d ${cont_name} bash -ic "ray${i}"
+ done
+ sleep 10
+ 
+ 
+ echo "Execute tpch"
+ docker exec -it ray1 bash -c 'source /opt/conda/etc/profile.d/conda.sh && conda activate ray && ./tpch.sh > /tmp/output.log'
+ # docker exec -it ray1 tail -f /tmp/output.log
+ # we'll be blocked until quit from shell
+ 
+ echo "Collet results and trace"
+ docker cp ray1:/tmp/output.log ${log_dir}/output.log
+ for i in {1..4}; do
+     cont_name="ray${i}"
+     docker cp ${cont_name}:/tmp/ray/session_latest/logs/raylet.out ${log_dir}/raylet${i}.out
+ 
+     docker exec -it ${cont_name} bash -c 'ray stop'
+     docker stop ${cont_name}
+ done
+ 
+ echo "Finished running Modin on baseline"
 
-# wait ray1 to set up
-sleep 20
-# docker exec in container ray2, using the existing shell, command ray2
-docker exec -d ray2 bash -c "ray2"
-# wait ray2 to set up
-sleep 10
 
-# run the test
-docker exec -d ray1 bash -c './tpch.sh > /tmp/output.log 2>&1'
-docker exec -it ray1 tail -f /tmp/output.log
+############################################
 
-# we'll be blocked until quit from shell
-docker cp ray1:/tmp/output.log ./output.log
-docker cp ray1:/tmp/ray/session_latest/logs/raylet.out ${log_dir}/raylet1.out
-docker cp ray2:/tmp/ray/session_latest/logs/raylet.out ${log_dir}/raylet2.out
-
-# terminate the containers
-docker exec -it ray2 bash -c 'ray stop'
-docker exec -it ray1 bash -c 'ray stop'
-docker stop ray1 ray2
-
-echo "Finished running Modin on baseline"
-
-echo "Running Modin on DUHU"
-./if.sh duhu-modin
-
-# docker exec in container ray1, using the existing shell, command ray1
-docker exec -d ray1 bash -c "cr"
-docker exec -d ray2 bash -c "cr"
-
-sleep 10
-
-docker exec -d ray1 bash -c "ray1"
-
-# wait ray1 to set up
-sleep 20
-# docker exec in container ray2, using the existing shell, command ray2
-docker exec -d ray2 bash -c "ray2"
-# wait ray2 to set up
-sleep 10
-
-# run the test
-docker exec -d ray1 bash -c './tpch.sh > /tmp/output.log 2>&1'
-docker exec -it ray1 tail -f /tmp/output.log
-
-# we'll be blocked until quit from shell
-docker cp ray1:/tmp/output.log ${log_dir}/duhu-output.log
-docker cp ray1:/tmp/ray/session_latest/logs/raylet.out ${log_dir}/duhu-raylet1.out
-docker cp ray2:/tmp/ray/session_latest/logs/raylet.out ${log_dir}/duhu-raylet2.out
-
-# terminate the containers
-docker exec -it ray2 bash -c 'ray stop'
-docker exec -it ray1 bash -c 'ray stop'
-docker stop ray1 ray2
+# echo "Running Modin on DUHU"
+# bash /home/twang/duhu-eval/shared_mem_setup.sh
+# ./if.sh ray-modin-duhu 
+# 
+# # docker exec in container ray1, using the existing shell, command ray1
+# for i in {1..4}; do
+#     cont_name="ray${i}"
+#     docker exec -d ${cont_name} bash -ic "cr"
+# done
+# sleep 10
+# 
+# echo "start ray on ray1"
+# docker exec -d ray1 bash -ic "ray1"
+# sleep 20
+# #
+# for i in {2..4}; do
+#     cont_name="ray${i}"
+#     echo "start ray on ${cont_name}"
+#     docker exec -d ${cont_name} bash -ic "ray${i}"
+# done
+# sleep 10
+# 
+# # run the test
+# echo "execute tpch"
+# docker exec -it ray1 bash -c './tpch.sh > /tmp/output.log'
+# 
+# echo "Collet results and trace"
+# docker cp ray1:/tmp/output.log ${log_dir}/output.log
+# for i in {1..4}; do
+#     cont_name="ray${i}"
+#     docker cp ${cont_name}:/tmp/ray/session_latest/logs/raylet.out ${log_dir}/raylet${i}.out
+# 
+#     docker exec -it ${cont_name} bash -c 'ray stop'
+#     docker stop ${cont_name}
+# done
+# 
+# echo "Finished running Modin on Duhu"

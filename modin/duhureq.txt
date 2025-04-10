@@ -1,5 +1,5 @@
 # torch
 ale_py
 opencv-python-headless
-ray==2.40.0
+# ray==2.40.0
 pyarrow
