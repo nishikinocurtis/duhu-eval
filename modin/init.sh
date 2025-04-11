@@ -4,9 +4,10 @@
 if [ $# -ne 1 ]; then
     echo "Usage: $0 <scale_factor>, default to 10"
     scale_factor=10
+else
+    scale_factor=$1
 fi
 
-scale_factor=$1
 directory="datasets-sf${scale_factor}"
 
 # Check if directory exists
