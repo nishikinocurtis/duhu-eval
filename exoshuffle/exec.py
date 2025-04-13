@@ -25,7 +25,12 @@ def create_logdir():
     log_dir = f"./logs_{rt.stdout.rstrip()}"
     os.mkdir(log_dir)
 
-def start_ray():
+def start_ray(test_case):
+    if test_case == "ray-sort-duhu":
+        for i in range(1,5):
+            cr_cmd = f"docker exec -d ray{i} bash -ic 'cr'"
+            subprocess.run(cr_cmd, shell=True)
+            time.sleep(5)
     start_ray1 = 'docker exec -d ray1 bash -ic "ray1"'
     rt = subprocess.run(start_ray1, shell=True)
     time.sleep(15)
@@ -56,10 +61,16 @@ def run(test_case, config):
     drop_outer_cache = "sudo bash -c 'sync; echo 3 > /proc/sys/vm/drop_caches'"
     rt = subprocess.run(drop_outer_cache, shell=True)
     print("Dropped host cache")
+    if test_case == "ray-sort-duhu":
+        prepare_mem = "bash ./shared_mem_setup.sh"
+        rt = subprocess.run(prepare_mem, shell=True)
     setup_cmd = f"./if-no-nic.sh {test_case}"
     rt = subprocess.run(setup_cmd, shell=True)
-    start_ray()
-    cmd = f"docker exec -it ray1 bash -ic 'source /opt/conda/etc/profile.d/conda.sh && conda activate ray && ./sort.sh {config} > /tmp/output.log 2>&1'"
+    start_ray(test_case)
+    if test_case == "ray-sort-duhu":
+        cmd = f"docker exec -it ray1 bash -ic './sort.sh {config} > /tmp/output.log 2>&1'"
+    else:
+        cmd = f"docker exec -it ray1 bash -ic 'source /opt/conda/etc/profile.d/conda.sh && conda activate ray && ./sort.sh {config} > /tmp/output.log 2>&1'"
     print (cmd)
     subprocess.run(cmd, shell=True)
     # CONFIG=${TESTCASE} sudo -E $(which python) raysort/main.py
@@ -68,7 +79,7 @@ def run(test_case, config):
 if __name__ == "__main__":
     create_logdir()
     os.chdir("..")
-    for run_case in ["ray-sort"]:
+    for run_case in ["ray-sort-duhu"]:
         for index, config in enumerate(configs):
             run(run_case, config)
 
