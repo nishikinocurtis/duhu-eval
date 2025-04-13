@@ -71,7 +71,6 @@ alias ray-sort3='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="60-6
 --name ray3 nishikinocurtis/duhu:sort-ray'
 
 alias ray-sort4='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="68-75" --privileged \
---mount type=bind,source=/mnt/numa1-shm,target=/dev/hugepages \
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e DUHU_BIND_CORE=0 \
 -e DUHU_NT_COPY_THREAD=4 \
@@ -83,7 +82,7 @@ alias ray-sort4='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="68-7
 alias ray-sort-duhu1='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="0-7" --privileged \
 --mount type=bind,source=/mnt/numa1-shm,target=/dev/hugepages \
 -e RAY_BACKEND_LOG_LEVEL=debug \
--e DUHU_BIND_CORE=0 \
+-e DUHU_BIND_CORE=1 \
 -e DUHU_NT_COPY_THREAD=4 \
 --network duhunet \
 --hostname ray1 \
@@ -93,27 +92,27 @@ alias ray-sort-duhu1='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus=
 alias ray-sort-duhu2='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="8-15" --privileged \
 --mount type=bind,source=/mnt/numa1-shm,target=/dev/hugepages \
 -e RAY_BACKEND_LOG_LEVEL=debug \
--e DUHU_BIND_CORE=0 \
+-e DUHU_BIND_CORE=1 \
 -e DUHU_NT_COPY_THREAD=4 \
 --network duhunet \
 --hostname ray2 \
 --ip 192.168.10.202 \
 --name ray2 nishikinocurtis/duhu:sort-duhu'
 
-alias ray-sort-duhu3='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="60-67" --privileged \
+alias ray-sort-duhu3='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="16-23" --privileged \
 --mount type=bind,source=/mnt/numa1-shm,target=/dev/hugepages \
 -e RAY_BACKEND_LOG_LEVEL=debug \
--e DUHU_BIND_CORE=0 \
+-e DUHU_BIND_CORE=1 \
 -e DUHU_NT_COPY_THREAD=4 \
 --network duhunet \
 --hostname ray3 \
 --ip 192.168.10.203 \
 --name ray3 nishikinocurtis/duhu:sort-duhu'
 
-alias ray-sort-duhu4='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="68-75" --privileged \
+alias ray-sort-duhu4='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="24-31" --privileged \
 --mount type=bind,source=/mnt/numa1-shm,target=/dev/hugepages \
 -e RAY_BACKEND_LOG_LEVEL=debug \
--e DUHU_BIND_CORE=0 \
+-e DUHU_BIND_CORE=1 \
 -e DUHU_NT_COPY_THREAD=4 \
 --network duhunet \
 --hostname ray4 \
