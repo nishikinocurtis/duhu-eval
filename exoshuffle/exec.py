@@ -6,12 +6,12 @@ log_dir=""
 
 configs = [
     "LocalNative32g64",
-    # "LocalNative32g32",
-    # "LocalNative16g64",
-    # "LocalNative16g32",
-    # "LocalNative16g16",
-    # "LocalNative4g16",
-    # "LocalNative1g16",
+    "LocalNative32g32",
+    "LocalNative16g64",
+    "LocalNative16g32",
+    "LocalNative16g16",
+    "LocalNative4g16",
+    "LocalNative1g16",
 ]
 
 def create_logdir():
