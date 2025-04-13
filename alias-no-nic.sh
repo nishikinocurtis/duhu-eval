@@ -21,7 +21,7 @@ alias ray-modin-duhu2='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus
 --name ray2 nishikinocurtis/duhu:modin-duhu'
 
 
-alias ray-modin-duhu3='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="32-39" --privileged \
+alias ray-modin-duhu3='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="60-67" --privileged \
 --mount type=bind,source=/mnt/numa1-shm,target=/dev/hugepages \
 -v /home/twang/dockerfiles/datasets-sf100:/tmp/datasets \
 -e RAY_BACKEND_LOG_LEVEL=debug \
@@ -32,7 +32,7 @@ alias ray-modin-duhu3='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus
 --ip 192.168.10.203 \
 --name ray3 nishikinocurtis/duhu:modin-duhu'
 
-alias ray-modin-duhu4='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="40-47" --privileged \
+alias ray-modin-duhu4='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="68-75" --privileged \
 --mount type=bind,source=/mnt/numa1-shm,target=/dev/hugepages \
 -v /home/twang/dockerfiles/datasets-sf100:/tmp/datasets \
 -e RAY_BACKEND_LOG_LEVEL=debug \
@@ -50,7 +50,7 @@ alias ray-sort1='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="0-7"
 --network duhunet \
 --hostname ray1 \
 --ip 192.168.10.201 \
---name ray1 nishikinocurtis/duhu:ray-sort'
+--name ray1 nishikinocurtis/duhu:sort-ray'
 
 alias ray-sort2='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="8-15" --privileged \
 -e RAY_BACKEND_LOG_LEVEL=debug \
@@ -59,25 +59,66 @@ alias ray-sort2='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="8-15
 --network duhunet \
 --hostname ray2 \
 --ip 192.168.10.202 \
---name ray2 nishikinocurtis/duhu:ray-sort'
+--name ray2 nishikinocurtis/duhu:sort-ray'
 
-alias ray-sort3='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="32-39" --privileged \
+alias ray-sort3='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="60-67" --privileged \
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e DUHU_BIND_CORE=0 \
 -e DUHU_NT_COPY_THREAD=4 \
 --network duhunet \
 --hostname ray3 \
 --ip 192.168.10.203 \
---name ray3 nishikinocurtis/duhu:ray-sort'
+--name ray3 nishikinocurtis/duhu:sort-ray'
 
-alias ray-sort4='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="40-47" --privileged \
+alias ray-sort4='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="68-75" --privileged \
+--mount type=bind,source=/mnt/numa1-shm,target=/dev/hugepages \
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e DUHU_BIND_CORE=0 \
 -e DUHU_NT_COPY_THREAD=4 \
 --network duhunet \
 --hostname ray4 \
 --ip 192.168.10.204 \
---name ray4 nishikinocurtis/duhu:ray-sort'
+--name ray4 nishikinocurtis/duhu:sort-ray'
+
+alias ray-sort-duhu1='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="0-7" --privileged \
+--mount type=bind,source=/mnt/numa1-shm,target=/dev/hugepages \
+-e RAY_BACKEND_LOG_LEVEL=debug \
+-e DUHU_BIND_CORE=0 \
+-e DUHU_NT_COPY_THREAD=4 \
+--network duhunet \
+--hostname ray1 \
+--ip 192.168.10.201 \
+--name ray1 nishikinocurtis/duhu:sort-duhu'
+
+alias ray-sort-duhu2='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="8-15" --privileged \
+--mount type=bind,source=/mnt/numa1-shm,target=/dev/hugepages \
+-e RAY_BACKEND_LOG_LEVEL=debug \
+-e DUHU_BIND_CORE=0 \
+-e DUHU_NT_COPY_THREAD=4 \
+--network duhunet \
+--hostname ray2 \
+--ip 192.168.10.202 \
+--name ray2 nishikinocurtis/duhu:sort-duhu'
+
+alias ray-sort-duhu3='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="60-67" --privileged \
+--mount type=bind,source=/mnt/numa1-shm,target=/dev/hugepages \
+-e RAY_BACKEND_LOG_LEVEL=debug \
+-e DUHU_BIND_CORE=0 \
+-e DUHU_NT_COPY_THREAD=4 \
+--network duhunet \
+--hostname ray3 \
+--ip 192.168.10.203 \
+--name ray3 nishikinocurtis/duhu:sort-duhu'
+
+alias ray-sort-duhu4='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="68-75" --privileged \
+--mount type=bind,source=/mnt/numa1-shm,target=/dev/hugepages \
+-e RAY_BACKEND_LOG_LEVEL=debug \
+-e DUHU_BIND_CORE=0 \
+-e DUHU_NT_COPY_THREAD=4 \
+--network duhunet \
+--hostname ray4 \
+--ip 192.168.10.204 \
+--name ray4 nishikinocurtis/duhu:sort-duhu'
 
 alias ray-daft-duhu1='docker run -dit --rm --shm-size=40gb -m=40g --cpuset-cpus="0-15" --privileged \
 --mount type=bind,source=/mnt/numa1-shm,target=/dev/hugepages \
