@@ -54,7 +54,7 @@ def run(test_case, config):
     setup_cmd = f"./if-no-nic.sh {test_case}"
     rt = subprocess.run(setup_cmd, shell=True)
     start_ray()
-    cmd = f"docker exec -it ray1 bash -ic 'source /opt/conda/etc/profile.d/conda.sh && conda activate ray &./sort.sh {config}'"
+    cmd = f"docker exec -it ray1 bash -ic 'source /opt/conda/etc/profile.d/conda.sh && conda activate ray && ./sort.sh {config} > /tmp/output.log 2>&1'"
     print (cmd)
     subprocess.run(cmd, shell=True)
     # CONFIG=${TESTCASE} sudo -E $(which python) raysort/main.py
