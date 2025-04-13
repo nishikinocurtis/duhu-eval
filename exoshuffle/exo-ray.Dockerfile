@@ -4,7 +4,7 @@ FROM debian:12
 # ARG USER_UID=2000
 #USER ${USERNAME}
 RUN apt-get update
-RUN apt-get install -y git wget bzip2 vim net-tools \
+RUN apt-get install -y git wget bzip2 vim net-tools sudo \
                         iputils-ping build-essential
 RUN rm -rf /var/lib/apt/lists/*
 
@@ -40,6 +40,24 @@ RUN pip install Cython wandb boto3 azure-storage-blob
 RUN python setup.py install
 RUN pushd raysort/sortlib && python setup.py build_ext --inplace && popd
 RUN scripts/installers/install_binaries.sh
+
+RUN echo "alias ray1=\"ray start --head --node-ip-address 192.168.10.201 --num-cpus=4 \
+    --dashboard-host 0.0.0.0 --object-store-memory 40000000000 --disable-usage-stats \
+    --resources='{\\\"head\\\":1, \\\"worker\\\":1}'\"" >> ~/.bashrc
+
+RUN echo "alias ray2=\"ray start --num-cpus=4 --node-ip-address 192.168.10.202 \
+    --address='192.168.10.201:6379' --object-store-memory 40000000000 \
+    --resources='{\\\"worker\\\":1}'\"" >> ~/.bashrc
+
+RUN echo "alias ray3=\"ray start --num-cpus=4 --node-ip-address 192.168.10.203 \
+    --address='192.168.10.201:6379' --object-store-memory 40000000000 \
+    --resources='{\\\"worker\\\":1}'\"" >> ~/.bashrc
+
+RUN echo "alias ray4=\"ray start --num-cpus=4 --node-ip-address 192.168.10.204 \
+    --address='192.168.10.201:6379' --object-store-memory 40000000000 \
+    --resources='{\\\"worker\\\":1}'\"" >> ~/.bashrc
+
+RUN echo "export TPU_VISIBLE_CHIPS=\"\"" >> ~/.bashrc
 
 ENV CONDA_DEFAULT_ENV=ray
 RUN echo "conda activate ray" >> ~/.bashrc

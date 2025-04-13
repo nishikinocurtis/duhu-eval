@@ -47,3 +47,4 @@ RUN echo "alias ray2=\"ray start --fixed-node-id 1 --num-cpus=8 --node-ip-addres
 
 
 RUN echo "alias p2=\"ping 192.168.10.202\"" >> ~/.bashrc
+RUN echo "export TPU_VISIBLE_CHIPS=\"\"" >> ~/.bashrc

@@ -4,6 +4,8 @@ current_time=$(date +"%Y%m%d_%H%M%S")
 log_dir="./logs_${current_time}"
 mkdir -p "$log_dir"
 
+docker network create --driver=bridge --subnet=192.168.10.0/24 duhunet
+
 echo "Running ExoShuffle on baseline first"
 
 ./if.sh ray-sort
@@ -35,7 +37,7 @@ docker stop ray1 ray2
 echo "Finished running ExoShuffle on baseline"
 
 echo "Running ExoShuffle on DUHU"
-./if.sh duhu-sort
+./if-no-nic.sh duhu-sort
 
 # docker exec in container ray1, using the existing shell, command ray1
 docker exec -d ray1 bash -c "cr"
@@ -65,3 +67,5 @@ docker cp ray2:/tmp/ray/session_latest/logs/raylet.out ${log_dir}/duhu-raylet2.o
 docker exec -it ray2 bash -c 'ray stop'
 docker exec -it ray1 bash -c 'ray stop'
 docker stop ray1 ray2
+
+docker network rm duhunet
