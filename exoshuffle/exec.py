@@ -49,8 +49,13 @@ def stop_ray(run_case, config):
         subprocess.run(start_ray_cmd, shell=True)
     cmd = 'docker stop ray1 ray2 ray3 ray4'
     subprocess.run(cmd, shell=True)
+    time.sleep(20)
 
 def run(test_case, config):
+    print("Dropping host cache")
+    drop_outer_cache = "sudo bash -c 'sync; echo 3 > /proc/sys/vm/drop_caches'"
+    rt = subprocess.run(drop_outer_cache, shell=True)
+    print("Dropped host cache")
     setup_cmd = f"./if-no-nic.sh {test_case}"
     rt = subprocess.run(setup_cmd, shell=True)
     start_ray()
