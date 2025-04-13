@@ -7,6 +7,7 @@ log_dir=""
 configs = [
     "LocalNative32g64",
     "LocalNative32g32",
+    "LocalNative32g16",
     "LocalNative16g64",
     "LocalNative16g32",
     "LocalNative16g16",
@@ -43,7 +44,7 @@ def stop_ray(run_case, config):
     ### grab traces
     global log_dir
     prefix = f"{run_case}_{config}_"
-    cmd = f"docker cp ray1:/tmp/output.log ./exoshuffle/{log_dir}/{prefix}output.log"
+    cmd = f"docker cp ray1:/tmp/perf.json ./exoshuffle/{log_dir}/{prefix}perf.json"
     subprocess.run(cmd, shell=True)
     for i in [1,2,3,4]:
         cmd = f"docker cp ray{i}:/tmp/ray/session_latest/logs/raylet.out ./exoshuffle/{log_dir}/{prefix}raylet{i}.out"
@@ -68,11 +69,12 @@ def run(test_case, config):
     rt = subprocess.run(setup_cmd, shell=True)
     start_ray(test_case)
     if test_case == "ray-sort-duhu":
-        cmd = f"docker exec -it ray1 bash -ic './sort.sh {config} > /tmp/output.log 2>&1'"
+        cmd = f"docker exec -it ray1 bash -ic './sort.sh {config}"
     else:
         cmd = f"docker exec -it ray1 bash -ic 'source /opt/conda/etc/profile.d/conda.sh && conda activate ray && ./sort.sh {config} > /tmp/output.log 2>&1'"
     print (cmd)
     subprocess.run(cmd, shell=True)
+    get_perf = "docker exec -it ray1 bash -ic 'cp ./wandb/offline-run-*/files/media/table/performance_summary_*table.json /tmp/perf.json'"
     # CONFIG=${TESTCASE} sudo -E $(which python) raysort/main.py
     stop_ray(test_case, config)
 
