@@ -8,6 +8,7 @@ configs = [
     "LocalNative32g64",
     "LocalNative32g32",
     "LocalNative32g16",
+    "LocalNative16g128",
     "LocalNative16g64",
     "LocalNative16g32",
     "LocalNative16g16",
