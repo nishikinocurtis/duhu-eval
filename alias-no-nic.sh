@@ -43,7 +43,7 @@ alias ray-modin-duhu4='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus
 --ip 192.168.10.204 \
 --name ray4 nishikinocurtis/duhu:modin-duhu'
 
-alias ray-sort1='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="0-13" --privileged \
+alias ray-sort1='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="0-7" --privileged \
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e DUHU_BIND_CORE=1 \
 -e DUHU_NT_COPY_THREAD=4 \
@@ -52,7 +52,7 @@ alias ray-sort1='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="0-13
 --ip 192.168.10.201 \
 --name ray1 nishikinocurtis/duhu:sort-ray'
 
-alias ray-sort2='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="14-27" --privileged \
+alias ray-sort2='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="8-15" --privileged \
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e DUHU_BIND_CORE=1 \
 -e DUHU_NT_COPY_THREAD=4 \
@@ -61,7 +61,7 @@ alias ray-sort2='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="14-2
 --ip 192.168.10.202 \
 --name ray2 nishikinocurtis/duhu:sort-ray'
 
-alias ray-sort3='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="28-41" --privileged \
+alias ray-sort3='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="16-23" --privileged \
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e DUHU_BIND_CORE=1 \
 -e DUHU_NT_COPY_THREAD=4 \
@@ -70,7 +70,7 @@ alias ray-sort3='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="28-4
 --ip 192.168.10.203 \
 --name ray3 nishikinocurtis/duhu:sort-ray'
 
-alias ray-sort4='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="42-56" --privileged \
+alias ray-sort4='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus="24-31" --privileged \
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e DUHU_BIND_CORE=1 \
 -e DUHU_NT_COPY_THREAD=4 \
