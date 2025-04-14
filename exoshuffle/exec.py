@@ -59,13 +59,13 @@ def stop_ray(run_case, config):
     time.sleep(20)
 
 def run(test_case, config):
-    print("Dropping host cache")
-    drop_outer_cache = "sudo bash -c 'sync; echo 3 > /proc/sys/vm/drop_caches'"
-    rt = subprocess.run(drop_outer_cache, shell=True)
-    print("Dropped host cache")
-    if test_case == "ray-sort-duhu":
-        prepare_mem = "bash ./shared_mem_setup.sh"
-        rt = subprocess.run(prepare_mem, shell=True)
+    # print("Dropping host cache")
+    # drop_outer_cache = "sudo bash -c 'sync; echo 3 > /proc/sys/vm/drop_caches'"
+    # rt = subprocess.run(drop_outer_cache, shell=True)
+    # print("Dropped host cache")
+    # if test_case == "ray-sort-duhu":
+    #     prepare_mem = "bash ./shared_mem_setup.sh"
+    #     rt = subprocess.run(prepare_mem, shell=True)
     setup_cmd = f"./if-no-nic.sh {test_case}"
     rt = subprocess.run(setup_cmd, shell=True)
     start_ray(test_case)
@@ -76,6 +76,7 @@ def run(test_case, config):
     print (cmd)
     subprocess.run(cmd, shell=True)
     get_perf = "docker exec -it ray1 bash -ic 'cp ./wandb/offline-run-*/files/media/table/performance_summary_*table.json /tmp/perf.json'"
+    subprocess.run(get_perf, shell=True)
     # CONFIG=${TESTCASE} sudo -E $(which python) raysort/main.py
     stop_ray(test_case, config)
 
