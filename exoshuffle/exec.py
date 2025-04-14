@@ -70,7 +70,7 @@ def run(test_case, config):
     rt = subprocess.run(setup_cmd, shell=True)
     start_ray(test_case)
     if test_case == "ray-sort-duhu":
-        cmd = f"docker exec -it ray1 bash -ic './sort.sh {config}"
+        cmd = f"docker exec -it ray1 bash -ic './sort.sh {config}'"
     else:
         cmd = f"docker exec -it ray1 bash -ic 'source /opt/conda/etc/profile.d/conda.sh && conda activate ray && ./sort.sh {config} > /tmp/output.log 2>&1'"
     print (cmd)
