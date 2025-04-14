@@ -63,9 +63,9 @@ def run(test_case, config):
     # drop_outer_cache = "sudo bash -c 'sync; echo 3 > /proc/sys/vm/drop_caches'"
     # rt = subprocess.run(drop_outer_cache, shell=True)
     # print("Dropped host cache")
-    # if test_case == "ray-sort-duhu":
-    #     prepare_mem = "bash ./shared_mem_setup.sh"
-    #     rt = subprocess.run(prepare_mem, shell=True)
+    if test_case == "ray-sort-duhu":
+        prepare_mem = "bash ./shared_mem_setup.sh"
+        rt = subprocess.run(prepare_mem, shell=True)
     setup_cmd = f"./if-no-nic.sh {test_case}"
     rt = subprocess.run(setup_cmd, shell=True)
     start_ray(test_case)
