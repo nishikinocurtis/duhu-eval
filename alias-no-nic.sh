@@ -84,6 +84,7 @@ alias ray-sort-duhu1='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus=
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e DUHU_BIND_CORE=1 \
 -e DUHU_NT_COPY_THREAD=8 \
+-e DUHU_CORE_MAP=56 \
 --network duhunet \
 --hostname ray1 \
 --ip 192.168.10.201 \
@@ -94,6 +95,7 @@ alias ray-sort-duhu2='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus=
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e DUHU_BIND_CORE=1 \
 -e DUHU_NT_COPY_THREAD=8 \
+-e DUHU_CORE_MAP=56 \
 --network duhunet \
 --hostname ray2 \
 --ip 192.168.10.202 \
@@ -104,6 +106,7 @@ alias ray-sort-duhu3='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus=
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e DUHU_BIND_CORE=1 \
 -e DUHU_NT_COPY_THREAD=8 \
+-e DUHU_CORE_MAP=56 \
 --network duhunet \
 --hostname ray3 \
 --ip 192.168.10.203 \
@@ -114,6 +117,7 @@ alias ray-sort-duhu4='docker run -dit --rm --shm-size=80gb -m=80g --cpuset-cpus=
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e DUHU_BIND_CORE=1 \
 -e DUHU_NT_COPY_THREAD=8 \
+-e DUHU_CORE_MAP=56 \
 --network duhunet \
 --hostname ray4 \
 --ip 192.168.10.204 \
