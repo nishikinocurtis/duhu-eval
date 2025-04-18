@@ -32,10 +32,10 @@ for i in {1..4}; do
   pid=$(docker inspect -f'{{.State.Pid}}' ${container_name})
 
   sudo nsenter -t $pid -n tc qdisc add dev eth0 root handle 1: htb default 10 r2q 100
-  sudo nsenter -t $pid -n tc class add dev eth0 parent 1: classid 1:10 htb rate 100gbit ceil 100gbit
+  sudo nsenter -t $pid -n tc class add dev eth0 parent 1: classid 1:10 htb rate 20gbit ceil 20gbit
   sudo nsenter -t $pid -n tc filter add dev eth0 protocol ip parent 1:0 prio 1 u32 match ip dst 0.0.0.0/0 flowid 1:10
   sudo nsenter -t $pid -n tc qdisc add dev eth0 handle ffff: ingress
-  sudo nsenter -t $pid -n tc filter add dev eth0 parent ffff: protocol ip u32 match ip src 0.0.0.0/0 police rate 100gbit burst 10mb drop flowid :1
+  sudo nsenter -t $pid -n tc filter add dev eth0 parent ffff: protocol ip u32 match ip src 0.0.0.0/0 police rate 20gbit burst 10mb drop flowid :1
   # sudo nsenter -t $pid -n tc qdisc add dev eth0 parent 1:1 handle 10: netem delay 0.02ms
 done
 # sudo ip netns add ns0

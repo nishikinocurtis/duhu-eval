@@ -1,49 +1,53 @@
-alias ray-modin-duhu1='docker run -dit --rm --shm-size=12gb -m=16g --cpuset-cpus="0-7" --privileged \
+alias ray-modin-duhu1='docker run -dit --rm --shm-size=5gb -m=16g --cpuset-cpus="0-14" --privileged \
 -v /dev/hugepages:/dev/hugepages \
--v /home/twang/dockerfiles/datasets-sf100:/tmp/datasets \
--v /home/twang/duhu-eval/microbenchmarks:/tmp/microbenchmarks \
+-v /data/duhu-eval/modin/dataset-sf10:/tmp/datasets \
+-v /data/duhu-eval/microbenchmarks:/tmp/microbenchmarks \
 -e RAY_object_spilling_threshold=3.00 \
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e DUHU_BIND_CORE=1 \
 -e DUHU_NT_COPY_THREAD=4 \
+-e DUHU_CORE_MAP=60 \
 --network duhunet \
 --hostname ray1 \
 --ip 192.168.10.201 \
 -p 6379:6379 -p 8265:8265 -p 9091:9090 -p 10001:10001 \
 --name ray1 nishikinocurtis/duhu:modin-duhu'
 
-alias ray-modin-duhu2='docker run -dit --rm --shm-size=12gb -m=16g --cpuset-cpus="8-15" --privileged \
+alias ray-modin-duhu2='docker run -dit --rm --shm-size=5gb -m=16g --cpuset-cpus="15-29" --privileged \
 -v /dev/hugepages:/dev/hugepages \
--v /home/twang/dockerfiles/datasets-sf100:/tmp/datasets \
+-v /data/duhu-eval/modin/dataset-sf10:/tmp/datasets \
 -e RAY_object_spilling_threshold=3.00 \
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e DUHU_BIND_CORE=1 \
 -e DUHU_NT_COPY_THREAD=4 \
+-e DUHU_CORE_MAP=60 \
 --network duhunet \
 --hostname ray2 \
 --ip 192.168.10.202 \
 --name ray2 nishikinocurtis/duhu:modin-duhu'
 
 
-alias ray-modin-duhu3='docker run -dit --rm --shm-size=12gb -m=16g --cpuset-cpus="16-23" --privileged \
+alias ray-modin-duhu3='docker run -dit --rm --shm-size=5gb -m=16g --cpuset-cpus="30-44" --privileged \
 -v /dev/hugepages:/dev/hugepages \
--v /home/twang/dockerfiles/datasets-sf100:/tmp/datasets \
+-v /data/duhu-eval/modin/dataset-sf10:/tmp/datasets \
 -e RAY_object_spilling_threshold=3.00 \
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e DUHU_BIND_CORE=1 \
 -e DUHU_NT_COPY_THREAD=4 \
+-e DUHU_CORE_MAP=60 \
 --network duhunet \
 --hostname ray3 \
 --ip 192.168.10.203 \
 --name ray3 nishikinocurtis/duhu:modin-duhu'
 
-alias ray-modin-duhu4='docker run -dit --rm --shm-size=12gb -m=16g --cpuset-cpus="24-31" --privileged \
+alias ray-modin-duhu4='docker run -dit --rm --shm-size=5gb -m=16g --cpuset-cpus="45-59" --privileged \
 -v /dev/hugepages:/dev/hugepages \
--v /home/twang/dockerfiles/datasets-sf100:/tmp/datasets \
+-v /data/duhu-eval/modin/dataset-sf10:/tmp/datasets \
 -e RAY_object_spilling_threshold=3.00 \
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e DUHU_BIND_CORE=1 \
 -e DUHU_NT_COPY_THREAD=4 \
+-e DUHU_CORE_MAP=60 \
 --network duhunet \
 --hostname ray4 \
 --ip 192.168.10.204 \
@@ -241,28 +245,28 @@ alias ray-daft2='docker run -dit --rm --shm-size=50gb -m=50g --cpuset-cpus="16-3
 -v /home/twang/dockerfiles/tpcds-sf10:/tmp/tpcds \
 -e RAY_BACKEND_LOG_LEVEL=debug --name ray2 --network none nishikinocurtis/duhu:daft-ray'
 
-alias ray-modin1='docker run -dit --rm --shm-size=12gb -m=16g --cpuset-cpus="0-7" \
--v /home/twang/dockerfiles/datasets-sf100:/tmp/datasets \
+alias ray-modin1='docker run -dit --rm --shm-size=5gb -m=16g --cpuset-cpus="0-14" \
+-v /data/duhu-eval/modin/dataset-sf10:/tmp/datasets \
 --network duhunet \
 --hostname ray1 \
 --ip 192.168.10.201 \
 -p 6379:6379 -p 8265:8265 -p 9091:9090 -p 10001:10001 \
 -e RAY_BACKEND_LOG_LEVEL=debug --name ray1 nishikinocurtis/duhu:modin-ray'
-alias ray-modin2='docker run -dit --rm --shm-size=12gb -m=16g --cpuset-cpus="8-15" \
--v /home/twang/dockerfiles/datasets-sf100:/tmp/datasets \
+alias ray-modin2='docker run -dit --rm --shm-size=5gb -m=16g --cpuset-cpus="15-29" \
+-v /data/duhu-eval/modin/dataset-sf10:/tmp/datasets \
 --network duhunet \
 --hostname ray2 \
 --ip 192.168.10.202 \
 -e RAY_BACKEND_LOG_LEVEL=debug --name ray2 nishikinocurtis/duhu:modin-ray'
 # -p 6379:6379 -p 8265:8265 -p 9091:9090 -p 10001:10001 \
-alias ray-modin3='docker run -dit --rm --shm-size=12gb -m=16g --cpuset-cpus="16-23" \
--v /home/twang/dockerfiles/datasets-sf100:/tmp/datasets \
+alias ray-modin3='docker run -dit --rm --shm-size=5gb -m=16g --cpuset-cpus="30-44" \
+-v /data/duhu-eval/modin/dataset-sf10:/tmp/datasets \
 --network duhunet \
 --hostname ray3 \
 --ip 192.168.10.203 \
 -e RAY_BACKEND_LOG_LEVEL=debug --name ray3 nishikinocurtis/duhu:modin-ray'
-alias ray-modin4='docker run -dit --rm --shm-size=12gb -m=16g --cpuset-cpus="24-31" \
--v /home/twang/dockerfiles/datasets-sf100:/tmp/datasets \
+alias ray-modin4='docker run -dit --rm --shm-size=5gb -m=16g --cpuset-cpus="45-59" \
+-v /data/duhu-eval/modin/dataset-sf10:/tmp/datasets \
 --network duhunet \
 --hostname ray4 \
 --ip 192.168.10.204 \
