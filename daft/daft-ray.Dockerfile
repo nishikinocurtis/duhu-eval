@@ -47,3 +47,4 @@ RUN echo "alias p2=\"ping 192.168.10.202\"" >> ~/.bashrc
 
 ENV CONDA_DEFAULT_ENV=ray
 RUN echo "conda activate ray" >> ~/.bashrc
+RUN echo "export TPU_VISIBLE_CHIPS=\"\"" >> ~/.bashrc

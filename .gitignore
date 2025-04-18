@@ -1,2 +1,5 @@
 ./modin/modin
 ./exoshuffle/raysort
+./daft/distributed-query-benchmarking
+./daft/tpch/parquet
+./daft/tpcds-sf10/data
