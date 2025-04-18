@@ -4,9 +4,9 @@ Evaluation set for Duhu
 
 # TODO
 
-- [ ] ExoShuffle multiple size setting script and config
+- [x] ExoShuffle multiple size setting script and config
 
-- [ ] Microbenchmarks python script
+- [x] Microbenchmarks python script
 
 - [x] Modin Script
 
