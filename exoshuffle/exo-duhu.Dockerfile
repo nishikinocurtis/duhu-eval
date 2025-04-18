@@ -34,16 +34,26 @@ ENV CONDA_DEFAULT_ENV=ray
 # RUN echo "conda activate raysort" >> ~/.bashrc
 # ENV PATH=$HOME/anaconda3/envs/raysort/bin:$PATH
 
+RUN pip install Cython wandb boto3 azure-storage-blob
+
 RUN echo "alias cr='sudo chmod -R 777 /dev/hugepages'" >> ~/.bashrc
 
-RUN echo "alias ray1=\"ray start --head --fixed-node-id 0 --node-ip-address 192.168.10.201 --num-cpus=8 \
-    --dashboard-host 0.0.0.0 --object-store-memory 40000000000 \
+RUN echo "alias ray1=\"ray start --head --fixed-node-id 0 --node-ip-address 192.168.10.201 --num-cpus=4 \
+    --dashboard-host 0.0.0.0 --object-store-memory 16000000000 --disable-usage-stats \
     --kvs-config-path \"/home/ray/kvs.json\" \
     --resources='{\\\"head\\\":1, \\\"worker\\\":1}'\"" >> ~/.bashrc
 
-RUN echo "alias ray2=\"ray start --fixed-node-id 1 --num-cpus=8 --node-ip-address 192.168.10.202 \
-    --address='192.168.10.201:6379' --object-store-memory 40000000000 \
+RUN echo "alias ray2=\"ray start --fixed-node-id 1 --num-cpus=4 --node-ip-address 192.168.10.202 \
+    --address='192.168.10.201:6379' --object-store-memory 16000000000 \
     --kvs-config-path \"/home/ray/kvs.json\" --resources='{\\\"worker\\\":1}'\"" >> ~/.bashrc
+
+RUN echo "alias ray3=\"ray start --fixed-node-id 2 --num-cpus=4 --node-ip-address 192.168.10.203 \
+--address='192.168.10.201:6379' --object-store-memory 16000000000 \
+--kvs-config-path \"/home/ray/kvs.json\" --resources='{\\\"worker\\\":1}'\"" >> ~/.bashrc
+
+RUN echo "alias ray4=\"ray start --fixed-node-id 3 --num-cpus=4 --node-ip-address 192.168.10.204 \
+--address='192.168.10.201:6379' --object-store-memory 16000000000 \
+--kvs-config-path \"/home/ray/kvs.json\" --resources='{\\\"worker\\\":1}'\"" >> ~/.bashrc
 
 
 RUN echo "alias p2=\"ping 192.168.10.202\"" >> ~/.bashrc
