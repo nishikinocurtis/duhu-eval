@@ -1,4 +1,4 @@
-alias ray-modin-duhu1='docker run -dit --rm --shm-size=4gb -m=16g --cpuset-cpus="0-7" --privileged \
+alias ray-modin-duhu1='docker run -dit --rm --shm-size=4gb -m=20g --cpuset-cpus="0-14" --privileged \
 -v /dev/hugepages:/dev/hugepages \
 -v /data/duhu-eval/modin/dataset-sf10:/tmp/datasets \
 -v /data/duhu-eval/microbenchmarks:/tmp/microbenchmarks \
@@ -14,7 +14,7 @@ alias ray-modin-duhu1='docker run -dit --rm --shm-size=4gb -m=16g --cpuset-cpus=
 -p 6379:6379 -p 8265:8265 -p 9091:9090 -p 10001:10001 \
 --name ray1 nishikinocurtis/duhu:modin-duhu'
 
-alias ray-modin-duhu2='docker run -dit --rm --shm-size=4gb -m=16g --cpuset-cpus="30-37" --privileged \
+alias ray-modin-duhu2='docker run -dit --rm --shm-size=4gb -m=20g --cpuset-cpus="30-44" --privileged \
 -v /dev/hugepages:/dev/hugepages \
 -v /data/duhu-eval/modin/dataset-sf10:/tmp/datasets \
 -e RAY_object_spilling_threshold=3.00 \
@@ -29,7 +29,7 @@ alias ray-modin-duhu2='docker run -dit --rm --shm-size=4gb -m=16g --cpuset-cpus=
 --name ray2 nishikinocurtis/duhu:modin-duhu'
 
 
-alias ray-modin-duhu3='docker run -dit --rm --shm-size=4gb -m=16g --cpuset-cpus="60-67" --privileged \
+alias ray-modin-duhu3='docker run -dit --rm --shm-size=4gb -m=20g --cpuset-cpus="60-74" --privileged \
 -v /dev/hugepages:/dev/hugepages \
 -v /data/duhu-eval/modin/dataset-sf10:/tmp/datasets \
 -e RAY_object_spilling_threshold=3.00 \
@@ -43,7 +43,7 @@ alias ray-modin-duhu3='docker run -dit --rm --shm-size=4gb -m=16g --cpuset-cpus=
 --ip 192.168.10.203 \
 --name ray3 nishikinocurtis/duhu:modin-duhu'
 
-alias ray-modin-duhu4='docker run -dit --rm --shm-size=4gb -m=16g --cpuset-cpus="90-97" --privileged \
+alias ray-modin-duhu4='docker run -dit --rm --shm-size=4gb -m=20g --cpuset-cpus="90-104" --privileged \
 -v /dev/hugepages:/dev/hugepages \
 -v /data/duhu-eval/modin/dataset-sf10:/tmp/datasets \
 -e RAY_object_spilling_threshold=3.00 \
@@ -249,27 +249,27 @@ alias ray-daft2='docker run -dit --rm --shm-size=50gb -m=50g --cpuset-cpus="16-3
 -v /home/twang/dockerfiles/tpcds-sf10:/tmp/tpcds \
 -e RAY_BACKEND_LOG_LEVEL=debug --name ray2 --network none nishikinocurtis/duhu:daft-ray'
 
-alias ray-modin1='docker run -dit --rm --shm-size=4gb -m=16g --cpuset-cpus="0-7" \
+alias ray-modin1='docker run -dit --rm --shm-size=4gb -m=16g --cpuset-cpus="0-14" \
 -v /data/duhu-eval/modin/dataset-sf10:/tmp/datasets \
 --network duhunet \
 --hostname ray1 \
 --ip 192.168.10.201 \
 -p 6379:6379 -p 8265:8265 -p 9091:9090 -p 10001:10001 \
 -e RAY_BACKEND_LOG_LEVEL=debug --name ray1 nishikinocurtis/duhu:modin-ray'
-alias ray-modin2='docker run -dit --rm --shm-size=4gb -m=16g --cpuset-cpus="30-37" \
+alias ray-modin2='docker run -dit --rm --shm-size=4gb -m=16g --cpuset-cpus="30-44" \
 -v /data/duhu-eval/modin/dataset-sf10:/tmp/datasets \
 --network duhunet \
 --hostname ray2 \
 --ip 192.168.10.202 \
 -e RAY_BACKEND_LOG_LEVEL=debug --name ray2 nishikinocurtis/duhu:modin-ray'
 # -p 6379:6379 -p 8265:8265 -p 9091:9090 -p 10001:10001 \
-alias ray-modin3='docker run -dit --rm --shm-size=4gb -m=16g --cpuset-cpus="60-67" \
+alias ray-modin3='docker run -dit --rm --shm-size=4gb -m=16g --cpuset-cpus="60-74" \
 -v /data/duhu-eval/modin/dataset-sf10:/tmp/datasets \
 --network duhunet \
 --hostname ray3 \
 --ip 192.168.10.203 \
 -e RAY_BACKEND_LOG_LEVEL=debug --name ray3 nishikinocurtis/duhu:modin-ray'
-alias ray-modin4='docker run -dit --rm --shm-size=4gb -m=16g --cpuset-cpus="90-97" \
+alias ray-modin4='docker run -dit --rm --shm-size=4gb -m=16g --cpuset-cpus="90-104" \
 -v /data/duhu-eval/modin/dataset-sf10:/tmp/datasets \
 --network duhunet \
 --hostname ray4 \
