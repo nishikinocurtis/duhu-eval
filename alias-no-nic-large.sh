@@ -57,43 +57,43 @@ alias ray-modin-duhu4='docker run -dit --rm --shm-size=4gb -m=20g --cpuset-cpus=
 --ip 192.168.10.204 \
 --name ray4 nishikinocurtis/duhu:modin-duhu'
 
-alias ray-sort1='docker run -dit --rm --shm-size=20gb -m=40g --cpuset-cpus="0-7" --privileged \
+alias ray-sort1='docker run -dit --rm --shm-size=4gb -m=20g --cpuset-cpus="0-14" --privileged \
 -v /home/twang/duhu-eval/microbenchmarks:/tmp/microbenchmarks \
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e DUHU_BIND_CORE=1 \
 -e DUHU_NT_COPY_THREAD=4 \
--e RAY_object_spilling_threshold=1.00 \
+-e RAY_object_spilling_threshold=0.8 \
 --network duhunet \
 --hostname ray1 \
 --ip 192.168.10.201 \
 -p 6379:6379 -p 8265:8265 -p 9091:9090 -p 10001:10001 \
 --name ray1 nishikinocurtis/duhu:sort-ray'
 
-alias ray-sort2='docker run -dit --rm --shm-size=20gb -m=40g --cpuset-cpus="8-15" --privileged \
+alias ray-sort2='docker run -dit --rm --shm-size=4gb -m=20g --cpuset-cpus="15-29" --privileged \
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e DUHU_BIND_CORE=1 \
 -e DUHU_NT_COPY_THREAD=4 \
--e RAY_object_spilling_threshold=0.90 \
+-e RAY_object_spilling_threshold=0.8 \
 --network duhunet \
 --hostname ray2 \
 --ip 192.168.10.202 \
 --name ray2 nishikinocurtis/duhu:sort-ray'
 
-alias ray-sort3='docker run -dit --rm --shm-size=20gb -m=40g --cpuset-cpus="16-23" --privileged \
+alias ray-sort3='docker run -dit --rm --shm-size=4gb -m=20g --cpuset-cpus="30-44" --privileged \
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e DUHU_BIND_CORE=1 \
 -e DUHU_NT_COPY_THREAD=4 \
--e RAY_object_spilling_threshold=0.90 \
+-e RAY_object_spilling_threshold=0.8 \
 --network duhunet \
 --hostname ray3 \
 --ip 192.168.10.203 \
 --name ray3 nishikinocurtis/duhu:sort-ray'
 
-alias ray-sort4='docker run -dit --rm --shm-size=20gb -m=40g --cpuset-cpus="24-31" --privileged \
+alias ray-sort4='docker run -dit --rm --shm-size=4gb -m=20g --cpuset-cpus="45-59" --privileged \
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e DUHU_BIND_CORE=1 \
 -e DUHU_NT_COPY_THREAD=4 \
--e RAY_object_spilling_threshold=0.90 \
+-e RAY_object_spilling_threshold=0.8 \
 --network duhunet \
 --hostname ray4 \
 --ip 192.168.10.204 \
@@ -139,7 +139,7 @@ alias ray-sort8='docker run -dit --rm --shm-size=20gb -m=40g --cpuset-cpus="56-6
 --ip 192.168.10.208 \
 --name ray8 nishikinocurtis/duhu:sort-ray'
 
-alias ray-sort-duhu1='docker run -dit --rm --shm-size=20gb -m=40g --cpuset-cpus="0-7" --privileged \
+alias ray-sort-duhu1='docker run -dit --rm --shm-size=4gb -m=20g --cpuset-cpus="0-14" --privileged \
 -v /dev/hugepages:/dev/hugepages \
 -v /home/twang/duhu-eval/microbenchmarks:/tmp/microbenchmarks \
 -e RAY_BACKEND_LOG_LEVEL=debug \
@@ -149,37 +149,41 @@ alias ray-sort-duhu1='docker run -dit --rm --shm-size=20gb -m=40g --cpuset-cpus=
 --network duhunet \
 --hostname ray1 \
 --ip 192.168.10.201 \
+-e DUHU_CORE_MAP=60 \
 -p 6379:6379 -p 8265:8265 -p 9091:9090 -p 10001:10001 \
 --name ray1 nishikinocurtis/duhu:sort-duhu'
 
-alias ray-sort-duhu2='docker run -dit --rm --shm-size=20gb -m=40g --cpuset-cpus="8-15" --privileged \
+alias ray-sort-duhu2='docker run -dit --rm --shm-size=4gb -m=20g --cpuset-cpus="15-29" --privileged \
 -v /dev/hugepages:/dev/hugepages \
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e DUHU_BIND_CORE=1 \
 -e DUHU_NT_COPY_THREAD=4 \
 -e RAY_object_spilling_threshold=0.90 \
+-e DUHU_CORE_MAP=60 \
 --network duhunet \
 --hostname ray2 \
 --ip 192.168.10.202 \
 --name ray2 nishikinocurtis/duhu:sort-duhu'
 
-alias ray-sort-duhu3='docker run -dit --rm --shm-size=20gb -m=40g --cpuset-cpus="16-23" --privileged \
+alias ray-sort-duhu3='docker run -dit --rm --shm-size=20gb -m=40g --cpuset-cpus="30-44" --privileged \
 -v /dev/hugepages:/dev/hugepages \
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e DUHU_BIND_CORE=1 \
 -e DUHU_NT_COPY_THREAD=4 \
--e RAY_object_spilling_threshold=0.90 \
+-e RAY_object_spilling_threshold=0.8 \
+-e DUHU_CORE_MAP=60 \
 --network duhunet \
 --hostname ray3 \
 --ip 192.168.10.203 \
 --name ray3 nishikinocurtis/duhu:sort-duhu'
 
-alias ray-sort-duhu4='docker run -dit --rm --shm-size=20gb -m=40g --cpuset-cpus="24-31" --privileged \
+alias ray-sort-duhu4='docker run -dit --rm --shm-size=20gb -m=40g --cpuset-cpus="45-59" --privileged \
 -v /dev/hugepages:/dev/hugepages \
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e DUHU_BIND_CORE=1 \
 -e DUHU_NT_COPY_THREAD=4 \
--e RAY_object_spilling_threshold=0.90 \
+-e RAY_object_spilling_threshold=0.8 \
+-e DUHU_CORE_MAP=60 \
 --network duhunet \
 --hostname ray4 \
 --ip 192.168.10.204 \

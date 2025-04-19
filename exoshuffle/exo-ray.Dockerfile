@@ -42,20 +42,20 @@ RUN python setup.py install
 RUN pushd raysort/sortlib && python setup.py build_ext --inplace && popd
 RUN scripts/installers/install_binaries.sh
 
-RUN echo "alias ray1=\"ray start --head --node-ip-address 192.168.10.201 --num-cpus=4 \
-    --dashboard-host 0.0.0.0 --object-store-memory 16000000000 --disable-usage-stats \
+RUN echo "alias ray1=\"ray start --head --node-ip-address 192.168.10.201 --num-cpus=8 \
+    --dashboard-host 0.0.0.0 --object-store-memory 4000000000 --disable-usage-stats \
     --resources='{\\\"head\\\":1, \\\"worker\\\":1}'\"" >> ~/.bashrc
 
-RUN echo "alias ray2=\"ray start --num-cpus=4 --node-ip-address 192.168.10.202 \
-    --address='192.168.10.201:6379' --object-store-memory 16000000000 \
+RUN echo "alias ray2=\"ray start --num-cpus=8 --node-ip-address 192.168.10.202 \
+    --address='192.168.10.201:6379' --object-store-memory 4000000000 \
     --resources='{\\\"worker\\\":1}'\"" >> ~/.bashrc
 
-RUN echo "alias ray3=\"ray start --num-cpus=4 --node-ip-address 192.168.10.203 \
-    --address='192.168.10.201:6379' --object-store-memory 16000000000 \
+RUN echo "alias ray3=\"ray start --num-cpus=8 --node-ip-address 192.168.10.203 \
+    --address='192.168.10.201:6379' --object-store-memory 4000000000 \
     --resources='{\\\"worker\\\":1}'\"" >> ~/.bashrc
 
-RUN echo "alias ray4=\"ray start --num-cpus=4 --node-ip-address 192.168.10.204 \
-    --address='192.168.10.201:6379' --object-store-memory 16000000000 \
+RUN echo "alias ray4=\"ray start --num-cpus=8 --node-ip-address 192.168.10.204 \
+    --address='192.168.10.201:6379' --object-store-memory 4000000000 \
     --resources='{\\\"worker\\\":1}'\"" >> ~/.bashrc
 
 RUN echo "alias ray5=\"ray start --num-cpus=4 --node-ip-address 192.168.10.205 \
