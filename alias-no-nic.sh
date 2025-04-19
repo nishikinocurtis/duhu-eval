@@ -6,52 +6,52 @@ alias ray-modin-duhu1='docker run -dit --rm --shm-size=4gb -m=16g --cpuset-cpus=
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e RAY_sdm_move_threshold=0.8 \
 -e DUHU_BIND_CORE=1 \
--e DUHU_NT_COPY_THREAD=4 \
--e DUHU_CORE_MAP=120 \
+-e DUHU_NT_COPY_THREAD=5 \
+-e DUHU_CORE_MAP=32 \
 --network duhunet \
 --hostname ray1 \
 --ip 192.168.10.201 \
 -p 6379:6379 -p 8265:8265 -p 9091:9090 -p 10001:10001 \
 --name ray1 nishikinocurtis/duhu:modin-duhu'
 
-alias ray-modin-duhu2='docker run -dit --rm --shm-size=4gb -m=16g --cpuset-cpus="30-37" --privileged \
+alias ray-modin-duhu2='docker run -dit --rm --shm-size=4gb -m=16g --cpuset-cpus="8-15" --privileged \
 -v /dev/hugepages:/dev/hugepages \
 -v /data/duhu-eval/modin/dataset-sf10:/tmp/datasets \
 -e RAY_object_spilling_threshold=3.00 \
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e RAY_sdm_move_threshold=0.8 \
 -e DUHU_BIND_CORE=1 \
--e DUHU_NT_COPY_THREAD=4 \
--e DUHU_CORE_MAP=120 \
+-e DUHU_NT_COPY_THREAD=5 \
+-e DUHU_CORE_MAP=32 \
 --network duhunet \
 --hostname ray2 \
 --ip 192.168.10.202 \
 --name ray2 nishikinocurtis/duhu:modin-duhu'
 
 
-alias ray-modin-duhu3='docker run -dit --rm --shm-size=4gb -m=16g --cpuset-cpus="60-67" --privileged \
+alias ray-modin-duhu3='docker run -dit --rm --shm-size=4gb -m=16g --cpuset-cpus="16-23" --privileged \
 -v /dev/hugepages:/dev/hugepages \
 -v /data/duhu-eval/modin/dataset-sf10:/tmp/datasets \
 -e RAY_object_spilling_threshold=3.00 \
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e RAY_sdm_move_threshold=0.8 \
 -e DUHU_BIND_CORE=1 \
--e DUHU_NT_COPY_THREAD=4 \
--e DUHU_CORE_MAP=120 \
+-e DUHU_NT_COPY_THREAD=5 \
+-e DUHU_CORE_MAP=32 \
 --network duhunet \
 --hostname ray3 \
 --ip 192.168.10.203 \
 --name ray3 nishikinocurtis/duhu:modin-duhu'
 
-alias ray-modin-duhu4='docker run -dit --rm --shm-size=4gb -m=16g --cpuset-cpus="90-97" --privileged \
+alias ray-modin-duhu4='docker run -dit --rm --shm-size=4gb -m=16g --cpuset-cpus="24-31" --privileged \
 -v /dev/hugepages:/dev/hugepages \
 -v /data/duhu-eval/modin/dataset-sf10:/tmp/datasets \
 -e RAY_object_spilling_threshold=3.00 \
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e RAY_sdm_move_threshold=0.8 \
 -e DUHU_BIND_CORE=1 \
--e DUHU_NT_COPY_THREAD=4 \
--e DUHU_CORE_MAP=120 \
+-e DUHU_NT_COPY_THREAD=5 \
+-e DUHU_CORE_MAP=32 \
 --network duhunet \
 --hostname ray4 \
 --ip 192.168.10.204 \
