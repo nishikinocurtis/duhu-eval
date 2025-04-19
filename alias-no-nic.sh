@@ -4,6 +4,7 @@ alias ray-modin-duhu1='docker run -dit --rm --shm-size=5gb -m=16g --cpuset-cpus=
 -v /data/duhu-eval/microbenchmarks:/tmp/microbenchmarks \
 -e RAY_object_spilling_threshold=3.00 \
 -e RAY_BACKEND_LOG_LEVEL=debug \
+-e RAY_sdm_move_threshold=1.0 \
 -e DUHU_BIND_CORE=1 \
 -e DUHU_NT_COPY_THREAD=4 \
 -e DUHU_CORE_MAP=60 \
@@ -18,6 +19,7 @@ alias ray-modin-duhu2='docker run -dit --rm --shm-size=5gb -m=16g --cpuset-cpus=
 -v /data/duhu-eval/modin/dataset-sf10:/tmp/datasets \
 -e RAY_object_spilling_threshold=3.00 \
 -e RAY_BACKEND_LOG_LEVEL=debug \
+-e RAY_sdm_move_threshold=1.0 \
 -e DUHU_BIND_CORE=1 \
 -e DUHU_NT_COPY_THREAD=4 \
 -e DUHU_CORE_MAP=60 \
@@ -32,6 +34,7 @@ alias ray-modin-duhu3='docker run -dit --rm --shm-size=5gb -m=16g --cpuset-cpus=
 -v /data/duhu-eval/modin/dataset-sf10:/tmp/datasets \
 -e RAY_object_spilling_threshold=3.00 \
 -e RAY_BACKEND_LOG_LEVEL=debug \
+-e RAY_sdm_move_threshold=1.0 \
 -e DUHU_BIND_CORE=1 \
 -e DUHU_NT_COPY_THREAD=4 \
 -e DUHU_CORE_MAP=60 \
@@ -45,6 +48,7 @@ alias ray-modin-duhu4='docker run -dit --rm --shm-size=5gb -m=16g --cpuset-cpus=
 -v /data/duhu-eval/modin/dataset-sf10:/tmp/datasets \
 -e RAY_object_spilling_threshold=3.00 \
 -e RAY_BACKEND_LOG_LEVEL=debug \
+-e RAY_sdm_move_threshold=1.0 \
 -e DUHU_BIND_CORE=1 \
 -e DUHU_NT_COPY_THREAD=4 \
 -e DUHU_CORE_MAP=60 \
