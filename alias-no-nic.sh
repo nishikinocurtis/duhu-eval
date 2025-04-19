@@ -6,7 +6,7 @@ alias ray-modin-duhu1='docker run -dit --rm --shm-size=4gb -m=16g --cpuset-cpus=
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e RAY_sdm_move_threshold=0.8 \
 -e DUHU_BIND_CORE=1 \
--e DUHU_NT_COPY_THREAD=5 \
+-e DUHU_NT_COPY_THREAD=4 \
 -e DUHU_CORE_MAP=32 \
 --network duhunet \
 --hostname ray1 \
@@ -21,7 +21,7 @@ alias ray-modin-duhu2='docker run -dit --rm --shm-size=4gb -m=16g --cpuset-cpus=
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e RAY_sdm_move_threshold=0.8 \
 -e DUHU_BIND_CORE=1 \
--e DUHU_NT_COPY_THREAD=5 \
+-e DUHU_NT_COPY_THREAD=4 \
 -e DUHU_CORE_MAP=32 \
 --network duhunet \
 --hostname ray2 \
@@ -36,7 +36,7 @@ alias ray-modin-duhu3='docker run -dit --rm --shm-size=4gb -m=16g --cpuset-cpus=
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e RAY_sdm_move_threshold=0.8 \
 -e DUHU_BIND_CORE=1 \
--e DUHU_NT_COPY_THREAD=5 \
+-e DUHU_NT_COPY_THREAD=4 \
 -e DUHU_CORE_MAP=32 \
 --network duhunet \
 --hostname ray3 \
@@ -50,7 +50,7 @@ alias ray-modin-duhu4='docker run -dit --rm --shm-size=4gb -m=16g --cpuset-cpus=
 -e RAY_BACKEND_LOG_LEVEL=debug \
 -e RAY_sdm_move_threshold=0.8 \
 -e DUHU_BIND_CORE=1 \
--e DUHU_NT_COPY_THREAD=5 \
+-e DUHU_NT_COPY_THREAD=4 \
 -e DUHU_CORE_MAP=32 \
 --network duhunet \
 --hostname ray4 \
